@@ -8,8 +8,12 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Dtos\AboutDto\" />
+    <Folder Include="Dtos\BuisnessDataDto\" />
+    <Folder Include="Dtos\ServşceRandevuDto\" />
+    <Folder Include="Dtos\ServiceFeatureDto\" />
+    <Folder Include="Dtos\ServiceDto\" />
     <Folder Include="Mapping\" />
-    <Folder Include="Dto\" />
     <Folder Include="Migrations\" />
     <Folder Include="ViewComponents\" />
   </ItemGroup>
