@@ -1,0 +1,135 @@
+﻿@model List<ResultServiceDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header mb-0">
+    <h3 class="fw-bold mb-3">Hizmetler</h3>
+    <ul class="breadcrumbs mb-3">
+        <li class="nav-home">
+            <a href="/A_Home/Index">
+                <i class="icon-home"></i>
+            </a>
+        </li>
+        <li class="separator">
+            <i class="icon-arrow-right"></i>
+        </li>
+        <li class="nav-item">
+            <a href="#">Hizmet Alanı</a>
+        </li>
+    </ul>
+</div>
+<div class="page-category">Hizmet bilgilerinizi buradan güncelleyebilirsiniz.</div>
+
+<div class="row">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Hizmetlerimiz</div>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">İKON</th>
+                        <th scope="col">BAŞLIK</th>
+                        <th scope="col">AÇIKLAMA</th>
+                        <th scope="col">GÜNCELLE</th>
+                        <th scope="col">SİL</th>
+                        <th scope="col">ÖZELLİK</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <form method="post" asp-action="UpdateService" asp-controller="A_Service">
+                        <tr>
+                            <td>
+                                    @item.ServiceID
+                                <input type="hidden" name="ServiceID" value="@item.ServiceID" />
+                            </td>
+                            <td>
+                                <input type="text" name="Icon" value="@item.Icon" class="form-control" />
+                            </td>
+                            <td>
+                                <input type="text" name="Title" value="@item.Title" class="form-control" />
+                            </td>
+                            <td>
+                                <input type="text" name="Description" value="@item.Description" class="form-control" />
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-warning">Güncelle</button>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger" href="/A_Service/DeleteService/@item.ServiceID">Sil</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-info" href="/A_ServiceFeature/Index/@item.ServiceID">Özellik Ekle</a>
+                            </td>
+                        </tr>
+                        </form>
+                    }
+                    <form method="post" asp-action="CreateService" asp-controller="A_Service">
+                    <tr>
+                        <td>#</td>
+                        <td>
+                            <input type="text" name="Icon" class="form-control" placeholder="ikon giriniz" required />
+                        </td>
+                        <td>
+                            <input type="text" name="Title" class="form-control" placeholder="başlık giriniz" required />
+                        </td>
+                        <td>
+                            <input type="text" name="Description" class="form-control" placeholder="açıklama giriniz" required />
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-success">Ekle</button>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </form>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+        @if (TempData["NotifyMessage"] != null)
+        {
+            <text>
+                                    $.notify({
+                                        // İçerik
+                                        icon: 'fa fa-bell',
+                                        title: '@TempData["NotifyTitle"]',
+                                        message: '@TempData["NotifyMessage"]'
+                                    },
+                                    {
+                                        // Ayarlar
+                                        type: '@TempData["NotifyType"]',
+                                        allow_dismiss: true,
+                                        newest_on_top: true,
+                                        placement: {
+                                            from: "bottom",
+                                            align: "right"
+                                        },
+                                        delay: 2500,
+                                        timer: 500,
+                                        animate: {
+                                            enter: 'animated fadeInDown',
+                                            exit: 'animated fadeOutUp'
+                                        },
+                                        offset: {
+                                            x: 30,
+                                            y: 30
+                                        }
+                                    });
+            </text>
+        }
+        });
+    </script>
+}

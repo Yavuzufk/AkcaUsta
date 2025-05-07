@@ -1,0 +1,33 @@
+﻿@* @model ResultOrderDto
+
+<div>
+    <h5>@Model.FirstName @Model.LastName</h5>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Telefon:</strong> @Model.Phone</p>
+    <p><strong>Adres Başlığı:</strong> @Model.AdressName</p>
+    <p><strong>Adres:</strong> @Model.Street, @Model.District, @Model.City, @Model.ZipCode</p>
+    <hr />
+    <h6>Ürünler</h6>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Ürün</th>
+                <th>Adet</th>
+                <th>Birim Fiyat</th>
+                <th>Toplam</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderItems)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.UnitPrice ₺</td>
+                    <td>@(item.UnitPrice * item.Quantity) ₺</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div> *@
+

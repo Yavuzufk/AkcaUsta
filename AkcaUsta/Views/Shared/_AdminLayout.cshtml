@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+@await Component.InvokeAsync("_AdminLayoutHeadComponentPartial")
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        @await Component.InvokeAsync("_AdminLayoutSidebarComponentPartial")
+        <!-- End Sidebar -->
+
+        <div class="main-panel">
+            <div class="main-header">
+                @await Component.InvokeAsync("_AdminLayoutLogoHeaderComponentPartial")
+
+                @await Component.InvokeAsync("_AdminLayoutNavbarComponentPartial")
+
+            </div>
+
+            <div class="container">
+                <div class="page-inner">
+                    @RenderBody()
+                </div>
+            </div>
+
+            @await Component.InvokeAsync("_AdminLayoutFooterComponentPartial")
+
+        </div>
+
+        <!-- Custom template | don't include it in your project! -->
+        @await Component.InvokeAsync("_AdminLayoutCustomTemplateComponentPartial")
+        <!-- End Custom template -->
+    </div>
+
+    @await Component.InvokeAsync("_AdminLayoutScriptsComponentPartial")
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
