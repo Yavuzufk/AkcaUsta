@@ -1,0 +1,121 @@
+﻿@model List<ResultTechnicianDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header mb-0">
+    <h3 class="fw-bold mb-3">Ustalar</h3>
+    <ul class="breadcrumbs mb-3">
+        <li class="nav-home">
+            <a href="/A_Home/Index">
+                <i class="icon-home"></i>
+            </a>
+        </li>
+        <li class="separator">
+            <i class="icon-arrow-right"></i>
+        </li>
+        <li class="nav-item">
+            <a href="#">Usta Listemiz</a>
+        </li>
+    </ul>
+</div>
+<div class="page-category">Usta/Teknisyen listemizi buradan görebilir ve ekleme güncelleme yapabilirsiniz.</div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex align-items-center">
+                <h4 class="card-title">Ustalar</h4>
+                <button class="btn btn-primary btn-round ms-auto"
+                        data-bs-toggle="modal"
+                        data-bs-target="#addRowModal">
+                    <i class="fa fa-plus"></i>
+                    Usta Ekle
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Create Modal -->
+            @await Component.InvokeAsync("_CreateTechnicianModalComponentPartial")
+
+            <div class="table-responsive">
+                <table class="display table table-striped table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Görsel</th>
+                            <th>İsim</th>
+                            <th>Teknisyenlik Alanı</th>
+                            <th style="width: 10%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.TechnicianID</td>
+                                <td>
+                                    <div class="avatar avatar-xxl">
+                                        <img src="~/Images/Technician/@item.Image" alt="@item.Image" class="avatar-img rounded-circle">
+                                    </div>
+                                </td>
+                                <td>@item.FullNanme</td>
+                                <td>@item.Job</td>
+                                <td>
+                                    <div class="form-button-action">
+                                        <a href="/A_Technician/Update/@item.TechnicianID" class="btn btn-link btn-primary btn-lg">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a href="/A_Technician/Delete/@item.TechnicianID" class="btn btn-link btn-danger btn-lg">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+        @if (TempData["NotifyMessage"] != null)
+        {
+            <text>
+              $.notify({
+                  // İçerik
+                  icon: 'fa fa-bell',
+                  title: '@TempData["NotifyTitle"]',
+                  message: '@TempData["NotifyMessage"]'
+              },
+              {
+                  // Ayarlar
+                  type: '@TempData["NotifyType"]',
+                  allow_dismiss: true,
+                  newest_on_top: true,
+                  placement: {
+                      from: "bottom",
+                      align: "right"
+                  },
+                  delay: 2500,
+                  timer: 500,
+                  animate: {
+                      enter: 'animated fadeInDown',
+                      exit: 'animated fadeOutUp'
+                  },
+                  offset: {
+                      x: 30,
+                      y: 30
+                  }
+              });
+            </text>
+        }
+            });
+    </script>
+}
+

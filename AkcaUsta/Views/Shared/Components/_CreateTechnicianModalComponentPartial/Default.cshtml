@@ -1,0 +1,74 @@
+﻿@model CreateTechnicianDto
+
+<div class="modal fade"
+     id="addRowModal"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">
+                    <span class="fw-mediumbold"> Usta/Teknisyen</span>
+                    <span class="fw-light"> Ekle </span>
+                </h5>
+                <button type="button"
+                        class="close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="Create" asp-controller="A_Technician" enctype="multipart/form-data" method="post">
+                <div class="modal-body">
+                    <p class="small">
+                        İşletmeye yeni bir usta/teknisyen eklemek için aşağıdaki alanları doldurunuz
+                    </p>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group form-group-default">
+                                    <label>Usta Adı Soyadı</label>
+                                    <input id="addName"
+                                           type="text"
+                                           asp-for="FullNanme"
+                                           class="form-control"
+                                           placeholder="Ad Soyad" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 pe-0">
+                                <div class="form-group form-group-default">
+                                    <label>Görsel</label>
+                                    <input id="addImage"
+                                           type="file"
+                                           asp-for="ImageUrl"
+                                           class="form-control"
+                                           accept="image/*"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group-default">
+                                    <label>Teknisyenlik Alanı</label>
+                                    <input id="addJob"
+                                           type="text"
+                                           asp-for="Job"
+                                           class="form-control"
+                                           placeholder="Teknisyenlik Alanı" />
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="submit" class="btn btn-primary">
+                        Ekle
+                    </button>
+                    <button type="button"
+                            class="btn btn-danger"
+                            data-bs-dismiss="modal">
+                        İptal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -15,5 +15,7 @@ namespace AkcaUsta.Context
         public DbSet<Service> Services { get; set; }
         public DbSet<ServiceFeature> ServiceFeatures { get; set; }
         public DbSet<ServiceRandevu> ServiceRandevus { get; set; }
+        public DbSet<Technician> Technicians { get; set; }
+        public DbSet<Testimonial> Testimonials { get; set; }
     }
 }

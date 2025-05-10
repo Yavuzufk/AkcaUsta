@@ -1,0 +1,124 @@
+﻿@model CreateTestimonialDto
+
+<div class="modal fade" id="addRowModal" tabindex="-1" aria-labelledby="addRowModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addRowModalLabel">Yeni Referans Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="Create" asp-controller="A_Testimonial" enctype="multipart/form-data" method="post">
+                <div class="modal-body">
+                    <p class="small">İşletmeye yeni bir referans eklemek için aşağıdaki alanları doldurunuz:</p>
+
+                    <!-- Referans Adı Soyadı -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Referans Adı Soyadı</label>
+                        <input type="text" class="form-control" id="name" asp-for="Name" placeholder="Ad Soyad" required>
+                    </div>
+
+                    <!-- Hizmet Seçimi -->
+                    <div class="mb-3">
+                        <label for="service" class="form-label">Aldığı Hizmet</label>
+                        <select asp-for="Service" class="form-control" asp-items="@(ViewBag.ServiceList as List<SelectListItem>)">
+                            <option value="">Hizmet Seçiniz</option>
+                        </select>
+                    </div>
+
+                    <!-- Görsel Yükleme -->
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Görsel</label>
+                        <input type="file" class="form-control" id="image" asp-for="ImageUrl" accept="image/*" required>
+                    </div>
+
+                    <!-- Referans Mesajı -->
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Referans Mesajı</label>
+                        <textarea class="form-control" id="message" rows="3" asp-for="Message" placeholder="Mesajınızı buraya yazın" required></textarea>
+                    </div>
+
+                    <!-- Yıldız Derecelendirme -->
+                    <div class="mb-3">
+                        <label class="form-label me-2">Derecelendirme:</label>
+                        <div id="starRating" class="d-flex">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <i class="fa-regular fa-star star" data-value="@i" style="font-size: 1.8rem; cursor: pointer; color: #ffc107; margin-right: 5px;"></i>
+                            }
+                        </div>
+                        <input type="hidden" asp-for="Stars" id="ratingInput" />
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Ekle</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('ratingInput');
+
+        let selectedRating = 0;
+
+        stars.forEach((star, index) => {
+            // Tıklama: Kalıcı seçim
+            star.addEventListener('click', () => {
+                selectedRating = index + 1;
+                ratingInput.value = selectedRating;
+                updateStars(selectedRating);
+            });
+
+            // Hover: Geçici gösterim
+            star.addEventListener('mouseenter', () => {
+                updateStars(index + 1);
+            });
+
+            // Mouse çıkınca eski haline dön
+            star.addEventListener('mouseleave', () => {
+                updateStars(selectedRating);
+            });
+        });
+
+        function updateStars(rating) {
+            stars.forEach((s, i) => {
+                if (i < rating) {
+                    s.classList.remove('fa-regular');
+                    s.classList.add('fa-solid');
+                } else {
+                    s.classList.remove('fa-solid');
+                    s.classList.add('fa-regular');
+                }
+            });
+        }
+    });
+</script>
+
+
+
+<style>
+    .star-filled {
+        display: none;
+    }
+
+    input[type="radio"]:checked + label .star-filled {
+        display: inline-block;
+    }
+
+    input[type="radio"]:checked + label .star {
+        display: none;
+    }
+
+    .m-1 {
+        margin: 0 5px;
+    }
+</style>
+
+
+

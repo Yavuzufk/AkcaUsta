@@ -1,5 +1,6 @@
 using AkcaUsta.Context;
 using AkcaUsta.Mapping;
+using AkcaUsta.Repositories.IRepository;
 using AkcaUsta.Repositories.Repository;
 using AkcaUsta.Repository.IRepository;
 
@@ -18,6 +19,8 @@ builder.Services.AddScoped<IBuisnessDataDAl, BuisnessDataRepository>();
 builder.Services.AddScoped<IServiceDal, ServiceRepository>();
 builder.Services.AddScoped<IServiceFeatureDal, ServiceFeatureRepository>();
 builder.Services.AddScoped<IServiceRandevuDal, ServiceRandevuRepository>();
+builder.Services.AddScoped<ITechnicianDal, TechnicianRepository>();
+builder.Services.AddScoped<ITestimonialDal, TestimonialRepository>();
 
 
 var app = builder.Build();

@@ -341,7 +341,7 @@ function readURL(input) {
 	}
 }
 
-$('.input-file-image input[type="file"').change(function () {
+$('.input-file-image input[type="file"]').change(function () {
 	readURL(this);
 });
 

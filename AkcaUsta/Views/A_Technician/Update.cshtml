@@ -1,0 +1,36 @@
+﻿@model ResultTechnicianDto
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Teknisyen / Usta Güncelleme Alanı</h2>
+    <form action="Update" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="TechnicianID">Teknisyen ID</label>
+            <input type="text" class="form-control" id="TechnicianID" name="TechnicianID" value="@Model.TechnicianID" readonly />
+        </div>
+
+        <div class="form-group">
+            <label for="FullNanme">Ad Soyad</label>
+            <input type="text" class="form-control" id="FullNanme" name="FullNanme" value="@Model.FullNanme" />
+        </div>
+
+        <div class="form-group">
+            <label for="Job">Meslek</label>
+            <input type="text" class="form-control" id="Job" name="Job" value="@Model.Job" />
+        </div>
+
+        <div class="form-group">
+            <label for="ImageUrl">Resim</label>
+            <input type="file" class="form-control" id="ImageUrl" name="ImageUrl" />
+            <small class="form-text text-muted">Mevcut resim: <img src="~/Images/Technician/@Model.Image" alt="Mevcut Resim" style="width: 100px; height: 100px;" /></small>
+            <input type="hidden" name="Image" value="@Model.Image" />
+
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Güncelle</button>
+    </form>
+</div>
+
