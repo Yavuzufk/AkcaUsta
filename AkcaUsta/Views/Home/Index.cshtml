@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<!-- Carousel Start -->
+@await Component.InvokeAsync("_HomepageCarouselComponentPartial")
+<!-- Carousel End -->
+
+<!-- Service Start -->
+@await Component.InvokeAsync("_HomepageServiceComponentPartial")
+<!-- Service End -->
+
+<!-- About Start -->
+@await Component.InvokeAsync("_AboutComponentPartial")
+<!-- About End -->
+
+<!-- Fact Start -->
+@await Component.InvokeAsync("_FactComponentPartial")
+<!-- Fact End -->
+
+<!-- Service Start -->
+@await Component.InvokeAsync("_ServiceComponentPartial")
+<!-- Service End -->
+
+<!-- Booking Start -->
+<div class="container-fluid my-5 px-0">
+    @await Component.InvokeAsync("_ServiceVideoComponentPartial")
+
+    @await Component.InvokeAsync("_ServiceRandevuComponentPartial")
+</div>
+<!-- Booking End -->
+
+<!-- Team Start -->
+@await Component.InvokeAsync("_TeamComponentPartial")
+<!-- Team End -->
+
+<!-- Testimonial Start -->
+@await Component.InvokeAsync("_TestimonialComponentPartial")
+<!-- Testimonial End -->

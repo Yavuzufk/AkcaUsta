@@ -23,6 +23,7 @@ namespace AkcaUsta.Mapping
             CreateMap<ServiceFeature, CreateServiceFeatureDto>().ReverseMap();
 
             CreateMap<ServiceRandevu, ResultServiceRandevuDto>().ReverseMap();
+            CreateMap<ServiceRandevu, CreateServiceRandevuDto>().ReverseMap();
         }
     }
 }

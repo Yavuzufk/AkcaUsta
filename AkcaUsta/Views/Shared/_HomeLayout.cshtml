@@ -1,0 +1,32 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+@await Component.InvokeAsync("_HomeLayoutHeadComponentPartial")
+
+<body>
+    <!-- Spinner Start -->
+    @await Component.InvokeAsync("_HomeLayoutSpinnerComponentPartial")
+    <!-- Spinner End -->
+
+    <!-- Topbar Start -->
+    @await Component.InvokeAsync("_HomeLayoutTopbarComponentPartial")
+    <!-- Topbar End -->
+    <!-- Navbar Start -->
+    @await Component.InvokeAsync("_HomeLayoutNavbarComponentPartial")
+    <!-- Navbar End -->
+    @RenderBody()
+    <!-- Footer Start -->
+    @await Component.InvokeAsync("_HomeLayoutFooterComponentPartial")
+    <!-- Footer End -->
+
+
+    <!-- JavaScript Libraries -->
+    @await Component.InvokeAsync("_HomeLayoutScriptsComponentPartial")
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

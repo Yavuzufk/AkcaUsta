@@ -1,0 +1,82 @@
+﻿@model CreateServiceRandevuDto
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+<div class="container position-relative wow fadeInUp" data-wow-delay="0.1s" style="margin-top: -6rem;">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="bg-light text-center p-5">
+                <h1 class="mb-4">Hizmet Randevusu Alın</h1>
+                <form asp-action="Create" asp-controller="A_ServiceRandevu" method="post">
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-6">
+                            <input asp-for="Name" class="form-control" placeholder="Adınız" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <input asp-for="Mail" class="form-control" placeholder="E-posta Adresiniz" />
+                            <span asp-validation-for="Mail" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <select asp-for="Service" asp-items="ViewBag.ServiceList" class="form-select">
+                                <option value="">Hizmet Seçin</option>
+                            </select>
+                            <span asp-validation-for="Service" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <input asp-for="Date" type="datetime-local" class="form-control" />
+                            <span asp-validation-for="Date" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <textarea asp-for="SpecialRequest" class="form-control" placeholder="Özel İstekleriniz"></textarea>
+                            <span asp-validation-for="SpecialRequest" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100 py-3" type="submit">Randevu Al</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsComponentPartial");
+    }
+    <script>
+        $(document).ready(function () {
+        @if (TempData["NotifyMessage"] != null)
+        {
+            <text>
+                                        $.notify({
+                                            // İçerik
+                                            icon: 'fa fa-bell',
+                                            title: '@TempData["NotifyTitle"]',
+                                            message: '@TempData["NotifyMessage"]'
+                                        },
+                                        {
+                                            // Ayarlar
+                                            type: '@TempData["NotifyType"]',
+                                            allow_dismiss: true,
+                                            newest_on_top: true,
+                                            placement: {
+                                                from: "bottom",
+                                                align: "right"
+                                            },
+                                            delay: 2500,
+                                            timer: 500,
+                                            animate: {
+                                                enter: 'animated fadeInDown',
+                                                exit: 'animated fadeOutUp'
+                                            },
+                                            offset: {
+                                                x: 30,
+                                                y: 30
+                                            }
+                                        });
+            </text>
+        }
+        });
+    </script>
+}
