@@ -16,6 +16,6 @@ namespace AkcaUsta.Entity
         public DateTime Date { get; set; }
 
         public string? SpecialRequest { get; set; }
-        public byte? RandevuStatus{ get; set; }
+        public bool? RandevuStatus{ get; set; }
     }
 }

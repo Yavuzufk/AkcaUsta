@@ -1,0 +1,58 @@
+﻿@model CreateServiceRandevuDto
+<div class="modal fade"
+     id="addRowModal"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="createRandevuModalLabel">Yeni Randevu Oluştur</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <form asp-action="Create" asp-controller="A_ServiceRandevu" method="post">
+                <input type="hidden" asp-for="ReturnUrl" value="@Context.Request.Path" />
+
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">Ad Soyad</label>
+                        <input type="text" class="form-control" id="Name" asp-for="Name" required />
+                        <div class="invalid-feedback">Ad alanı boş bırakılamaz.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Mail" class="form-label">E-posta</label>
+                        <input type="email" class="form-control" id="Mail" asp-for="Mail" required />
+                        <div class="invalid-feedback">Geçerli bir e-posta giriniz.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Service" class="form-label">Hizmet</label>
+                        <select asp-for="Service" class="form-control" asp-items="@(ViewBag.ServiceList as List<SelectListItem>)">
+                            <option value="">Hizmet Seçiniz</option>
+                        </select>
+                        <div class="invalid-feedback">Hizmet seçilmelidir.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Date" class="form-label">Tarih</label>
+                        <input type="datetime-local" class="form-control" id="Date" name="Date"
+                               value="@(Model.Date.HasValue ? Model.Date.Value.ToString("yyyy-MM-ddTHH:mm") : "")" />
+                        <div class="invalid-feedback">Tarih seçilmelidir.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="SpecialRequest" class="form-label">Özel Not</label>
+                        <textarea class="form-control" id="SpecialRequest" asp-for="SpecialRequest" rows="3" placeholder="Varsa özel isteğinizi yazınız..."></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -15,8 +15,11 @@ namespace AkcaUsta.Dtos.ServiceRandevuDtos
         public string Service { get; set; }
 
         [Required(ErrorMessage = "Tarih seçilmelidir.")]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public string? SpecialRequest { get; set; }
+        public bool RandevuStatus { get; set; } = false;
+        public string? ReturnUrl { get; set; } // Bu yeni alan
+
     }
 }

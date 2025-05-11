@@ -16,5 +16,6 @@ namespace AkcaUsta.Dtos.ServiceRandevuDtos
         public DateTime Date { get; set; }
 
         public string? SpecialRequest { get; set; }
+        public bool? RandevuStatus { get; set; }
     }
 }

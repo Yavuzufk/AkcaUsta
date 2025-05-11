@@ -7,6 +7,7 @@
             <div class="bg-light text-center p-5">
                 <h1 class="mb-4">Hizmet Randevusu Alın</h1>
                 <form asp-action="Create" asp-controller="A_ServiceRandevu" method="post">
+                    <input type="hidden" asp-for="ReturnUrl" value="@Context.Request.Path" />
                     <div class="row g-3">
                         <div class="col-12 col-sm-6">
                             <input asp-for="Name" class="form-control" placeholder="Adınız" />

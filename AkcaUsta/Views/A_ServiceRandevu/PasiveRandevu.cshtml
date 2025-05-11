@@ -1,11 +1,12 @@
 ﻿@model List<ResultServiceRandevuDto>
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "PasiveRandevu";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="page-header mb-0">
-    <h3 class="fw-bold mb-3">Usta Randevuları</h3>
+    <h3 class="fw-bold mb-3">Onay Bekleyen Randevular</h3>
     <ul class="breadcrumbs mb-3">
         <li class="nav-home">
             <a href="/A_Home/Index">
@@ -16,28 +17,19 @@
             <i class="icon-arrow-right"></i>
         </li>
         <li class="nav-item">
-            <a href="#">Usta Randevu</a>
+            <a href="#">Onay Bekleyen Randevular</a>
         </li>
     </ul>
 </div>
-<div class="page-category">Usta randevu isteklerini buradan görebilirsiniz.</div>
+<div class="page-category">Onay bekleyen randevuları buradan görebilirsiniz.</div>
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
             <div class="d-flex align-items-center">
                 <h4 class="card-title">Randevular</h4>
-                <button class="btn btn-primary btn-round ms-auto"
-                        data-bs-toggle="modal"
-                        data-bs-target="#addRowModal">
-                    <i class="fa fa-plus"></i>
-                    Randevu Ekle
-                </button>
             </div>
         </div>
         <div class="card-body">
-            <!-- Modal -->
-            @await Component.InvokeAsync("_CreateRandevuModalComponentPartial")
-
             <div class="table-responsive">
                 <table class="display table table-striped table-hover text-center">
                     <thead>
@@ -94,12 +86,20 @@
                                 <td>@item.SpecialRequest</td>
                                 <td>
                                     <div class="form-button-action">
-                                        <a href="/A_ServiceRandevu/Details/@item.ServiceRandevuID" class="btn btn-link btn-primary btn-lg">
+                                        <button type="button"
+                                                data-bs-toggle="tooltip"
+                                                title=""
+                                                class="btn btn-link btn-primary btn-lg"
+                                                data-original-title="Edit Task">
                                             <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a href="/A_ServiceRandevu/Delete/@item.ServiceRandevuID" class="btn btn-link btn-danger btn-lg">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
+                                        </button>
+                                        <button type="button"
+                                                data-bs-toggle="tooltip"
+                                                title=""
+                                                class="btn btn-link btn-danger"
+                                                data-original-title="Remove">
+                                            <i class="fa fa-times"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -111,40 +111,3 @@
     </div>
 </div>
 
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-        @if (TempData["NotifyMessage"] != null)
-        {
-            <text>
-                  $.notify({
-                      // İçerik
-                      icon: 'fa fa-bell',
-                      title: '@TempData["NotifyTitle"]',
-                      message: '@TempData["NotifyMessage"]'
-                  },
-                  {
-                      // Ayarlar
-                      type: '@TempData["NotifyType"]',
-                      allow_dismiss: true,
-                      newest_on_top: true,
-                      placement: {
-                          from: "bottom",
-                          align: "right"
-                      },
-                      delay: 2500,
-                      timer: 500,
-                      animate: {
-                          enter: 'animated fadeInDown',
-                          exit: 'animated fadeOutUp'
-                      },
-                      offset: {
-                          x: 30,
-                          y: 30
-                      }
-                  });
-            </text>
-        }
-            });
-    </script>
-}

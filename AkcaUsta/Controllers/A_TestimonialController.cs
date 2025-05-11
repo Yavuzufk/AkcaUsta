@@ -28,7 +28,7 @@ namespace AkcaUsta.Controllers
             ViewBag.ServiceList = services.Select(s => new SelectListItem
             {
                 Text = s.Title,
-                Value = s.Title // istersen ID'yi value olarak kullanabilirsin
+                Value = s.Title 
             }).ToList();
 
             var testimonial = await _testimonialDal.GetAllAsync();

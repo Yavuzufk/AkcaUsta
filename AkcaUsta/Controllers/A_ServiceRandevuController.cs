@@ -1,9 +1,11 @@
 ﻿using AkcaUsta.Dtos.ServiceFeatureDtos;
 using AkcaUsta.Dtos.ServiceRandevuDtos;
 using AkcaUsta.Entity;
+using AkcaUsta.Repositories.IRepository;
 using AkcaUsta.Repositories.Repository;
 using AkcaUsta.Repository.IRepository;
 using AutoMapper;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -26,6 +28,15 @@ namespace AkcaUsta.Controllers
         {
             var randevu = await _serviceRandevuDal.GetAllAsync();
             var result = _mapper.Map<List<ResultServiceRandevuDto>>(randevu);
+
+            var services = await _serviceDal.GetAllAsync();
+
+            ViewBag.ServiceList = services.Select(s => new SelectListItem
+            {
+                Text = s.Title,
+                Value = s.Title 
+            }).ToList();
+
             return View(result);
         }
 
@@ -41,7 +52,7 @@ namespace AkcaUsta.Controllers
                     Value = s.Title
                 }).ToList();
 
-                return RedirectToAction("Index", "Home");
+                return Redirect(dto.ReturnUrl ?? "/Home/Index");
             }
             try
             {
@@ -51,17 +62,77 @@ namespace AkcaUsta.Controllers
                 // Kullanıcıya bildirim göstermek için TempData kullanabiliriz
                 TempData["NotifyMessage"] = "Randevu isteiğiniz başarılı bir şekilde oluşturuldu!";
                 TempData["NotifyType"] = "success"; // Diğer seçenekler: info, warning, danger
-                TempData["NotifyTitle"] = "Randevu İsteği Başarılı";  // Başlık burada!
+                TempData["NotifyTitle"] = "Randevu Ekleme İsteği Başarılı";  // Başlık burada!
 
             }
             catch (Exception)
             {
                 TempData["NotifyMessage"] = "Randevu İsteği oluşturulurken bir hata oluştu.";
                 TempData["NotifyType"] = "danger";
-                TempData["NotifyTitle"] = "Randevu İsteğinde Problem Oluştu";  // Başlık burada!
+                TempData["NotifyTitle"] = "Randevu Ekleme İsteğinde Problem Oluştu";  // Başlık burada!
             }
 
-            return RedirectToAction("Index", "Home");
+            return Redirect(dto.ReturnUrl ?? "/Home/Index");
         }
+
+        public async Task<IActionResult> RandevuStatus(int id)
+        {
+            if (!ModelState.IsValid) return RedirectToAction("Index");
+
+            try
+            {
+                await _serviceRandevuDal.ToggleRandevuStatusAsync(id);
+
+                TempData["NotifyMessage"] = "Randevu durumu başarılı bir şekilde değiştirildi!";
+                TempData["NotifyType"] = "success";
+                TempData["NotifyTitle"] = "Durum Değiştirme İşlemi Başarılı";
+
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception)
+            {
+                TempData["NotifyMessage"] = "Randevu durumu değiştirilirken bir hata oluştu.";
+                TempData["NotifyType"] = "danger";
+                TempData["NotifyTitle"] = "Durum Değiştirme İşleminde Bir Problem Oluştu";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> PasiveRandevu()
+        {
+            var values = await _serviceRandevuDal.GetPassiveRandevuAsync();
+            var result = _mapper.Map<List<ResultServiceRandevuDto>>(values);
+
+            return View(result);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var entity = await _serviceRandevuDal.GetByIdAsync(id);
+
+            try
+            {
+                await _serviceRandevuDal.DeleteAsync(entity);
+
+                TempData["NotifyMessage"] = "Randevu İsteği başarıyla silindi!";
+                TempData["NotifyType"] = "success";
+                TempData["NotifyTitle"] = "Silme İşlemi Başarılı";
+
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception)
+            {
+                TempData["NotifyMessage"] = "Randevu İsteği silinirken bir hata oluştu.";
+                TempData["NotifyType"] = "danger";
+                TempData["NotifyTitle"] = "Silme İşleminde Bir Problem Oluştu";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
