@@ -1,82 +1,41 @@
-﻿<div class="container-xxl py-5">
+﻿@model List<ResultTechnicianDto>
+
+@{
+    double delay = 0.1;
+    int index = 0;
+}
+
+<div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="text-secondary text-uppercase">Teknisyenlerimiz</h6>
             <h1 class="mb-5">Uzman Teknisyenlerimiz</h1>
         </div>
         <div class="row g-4">
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="team-item">
-                    <div class="position-relative overflow-hidden">
-                        <img class="img-fluid" src="img/team-1.jpg" alt="">
-                    </div>
-                    <div class="team-text">
-                        <div class="bg-light">
-                            <h5 class="fw-bold mb-0">Ali Yılmaz</h5>
-                            <small>Baş Teknisyen</small>
+            @foreach (var item in Model)
+            {
+                var delayValue = (0.1 + index * 0.2).ToString("0.0", System.Globalization.CultureInfo.InvariantCulture) + "s";
+                index++;
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="@delayValue">
+                    <div class="team-item">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid" src="~/Images/Technician/@item.Image" alt="@item.Image">
                         </div>
-                        <div class="bg-primary">
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="team-item">
-                    <div class="position-relative overflow-hidden">
-                        <img class="img-fluid" src="img/team-2.jpg" alt="">
-                    </div>
-                    <div class="team-text">
-                        <div class="bg-light">
-                            <h5 class="fw-bold mb-0">Mehmet Demir</h5>
-                            <small>Su Tesisat Uzmanı</small>
-                        </div>
-                        <div class="bg-primary">
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-instagram"></i></a>
+                        <div class="team-text">
+                            <div class="bg-light">
+                                <h5 class="fw-bold mb-0">@item.FullNanme</h5>
+                                <small>@item.Job</small>
+                            </div>
+                            <div class="bg-primary">
+                                <a class="btn btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square mx-1" href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="team-item">
-                    <div class="position-relative overflow-hidden">
-                        <img class="img-fluid" src="img/team-3.jpg" alt="">
-                    </div>
-                    <div class="team-text">
-                        <div class="bg-light">
-                            <h5 class="fw-bold mb-0">Ayşe Kaya</h5>
-                            <small>Isıtma Sistemleri Uzmanı</small>
-                        </div>
-                        <div class="bg-primary">
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="team-item">
-                    <div class="position-relative overflow-hidden">
-                        <img class="img-fluid" src="img/team-4.jpg" alt="">
-                    </div>
-                    <div class="team-text">
-                        <div class="bg-light">
-                            <h5 class="fw-bold mb-0">Fatma Şahin</h5>
-                            <small>Kanalizasyon Sistemi Uzmanı</small>
-                        </div>
-                        <div class="bg-primary">
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
+
         </div>
     </div>
 </div>

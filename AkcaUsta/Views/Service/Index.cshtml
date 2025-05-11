@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 py-5">
+    <div class="container">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Hizmetler</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb text-uppercase">
+                <li class="breadcrumb-item"><a class="text-white" href="/Home/Index">Ana Sayfa</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="#">Hizmetler</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Page Start -->
+
+<!-- Service Start -->
+@await Component.InvokeAsync("_ServiceComponentPartial")
+<!-- Service End -->
+
+<!-- Booking Start -->
+<div class="container-fluid my-5 px-0">
+    @await Component.InvokeAsync("_ServiceVideoComponentPartial")
+
+    @await Component.InvokeAsync("_ServiceRandevuComponentPartial")
+</div>
+<!-- Booking End -->
+
+<!-- Team Start -->
+@await Component.InvokeAsync("_TestimonialComponentPartial")
+<!-- Team End -->
+
+<!-- Page End -->
+
