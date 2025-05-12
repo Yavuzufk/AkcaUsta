@@ -1,5 +1,6 @@
 ﻿using AkcaUsta.Dtos.AboutDtos;
 using AkcaUsta.Dtos.BuisnessDataDtos;
+using AkcaUsta.Dtos.ContactDtos;
 using AkcaUsta.Dtos.ServiceDtos;
 using AkcaUsta.Dtos.ServiceFeatureDtos;
 using AkcaUsta.Dtos.ServiceRandevuDtos;
@@ -32,6 +33,9 @@ namespace AkcaUsta.Mapping
 
             CreateMap<Testimonial, CreateTestimonialDto>().ReverseMap();
             CreateMap<Testimonial, ResultTestimonialDto>().ReverseMap();
+
+            CreateMap<Contact, CreateContactDto>().ReverseMap();
+            CreateMap<Contact, ResultContactDto>().ReverseMap();
         }
     }
 }

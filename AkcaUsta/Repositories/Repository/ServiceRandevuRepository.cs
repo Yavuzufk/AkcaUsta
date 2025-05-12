@@ -11,6 +11,16 @@ namespace AkcaUsta.Repositories.Repository
         {
         }
 
+        public  async Task<List<ServiceRandevu>> GetLastMonthRandevus()
+        {
+            using var _context = new AppDbContext();
+
+            var oneMonthAgo = DateTime.Now.AddMonths(-1);
+            return await _context.ServiceRandevus
+                                 .Where(x => x.Date >= oneMonthAgo)
+                                 .ToListAsync();
+        }
+
         public async Task<List<ServiceRandevu>> GetPassiveRandevuAsync()
         {
             using var _context = new AppDbContext();

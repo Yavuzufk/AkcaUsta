@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header mb-0">
+    <h3 class="fw-bold mb-3">Alınabilecek Raporlar</h3>
+    <ul class="breadcrumbs mb-3">
+        <li class="nav-home">
+            <a href="/A_Home/Index">
+                <i class="icon-home"></i>
+            </a>
+        </li>
+        <li class="separator">
+            <i class="icon-arrow-right"></i>
+        </li>
+        <li class="nav-item">
+            <a href="#">Raporlar</a>
+        </li>
+    </ul>
+</div>
+<div class="page-category">Sistemimizden alınabilecek raporları buradan görebilirsiniz.</div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex align-items-center">
+                <h4 class="card-title">Raporlar</h4>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="display table table-striped table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left;">Rapor İsimi</th>
+                            <th>PDF</th>
+                            <th>EXCEL</th>
+                            <th>WORD</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th style="text-align: left;">Rapor İsimi</th>
+                            <th>PDF</th>
+                            <th>EXCEL</th>
+                            <th>WORD</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: left;"> Son 1 Aylık Hizmet Randevuları </td>
+                            <td>
+                                <a href="/A_Reporting/ExportRandevuReport"
+                                   class="btn btn-danger btn-round btn-sm"
+                                   title="PDF İndir">
+                                    <i class="fas fa-file-pdf"></i> PDF İndir
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/A_Reporting/ExportRandevuReportExcel"
+                                   class="btn btn-success btn-round btn-sm"
+                                   title="EXCEL İndir">
+                                    <i class="fas fa-file-excel"></i> EXCEL İndir
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/A_Reporting/ExportRandevuReportWord"
+                                   class="btn btn-primary btn-round btn-sm"
+                                   title="WORD İndir">
+                                    <i class="fas fa-file-word"></i> WORD İndir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left;"> Toplam Randevu Sayısı ve Durumlarına Göre Dağılım </td>
+                            <td>
+                                <a href="/A_Reporting/ExportRandevuReport"
+                                   class="btn btn-danger btn-round btn-sm"
+                                   title="PDF İndir">
+                                    <i class="fas fa-file-pdf"></i> PDF İndir
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/A_Reporting/ExportRandevuReportExcel"
+                                   class="btn btn-success btn-round btn-sm"
+                                   title="EXCEL İndir">
+                                    <i class="fas fa-file-excel"></i> EXCEL İndir
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/A_Reporting/ExportRandevuReportWord"
+                                   class="btn btn-primary btn-round btn-sm"
+                                   title="WORD İndir">
+                                    <i class="fas fa-file-word"></i> WORD İndir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left;"> İş İstatistik Özeti Raporu </td>
+                            <td>
+                                <a href="/A_Reporting/BuisnessDataReport"
+                                   class="btn btn-danger btn-round btn-sm"
+                                   title="PDF İndir">
+                                    <i class="fas fa-file-pdf"></i> PDF İndir
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/A_Reporting/BuisnessDataReportExcel"
+                                   class="btn btn-success btn-round btn-sm"
+                                   title="EXCEL İndir">
+                                    <i class="fas fa-file-excel"></i> EXCEL İndir
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/A_Reporting/BuisnessDataReportWord"
+                                   class="btn btn-primary btn-round btn-sm"
+                                   title="WORD İndir">
+                                    <i class="fas fa-file-word"></i> WORD İndir
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

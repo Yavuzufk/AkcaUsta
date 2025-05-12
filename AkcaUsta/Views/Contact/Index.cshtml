@@ -1,0 +1,112 @@
+﻿@model CreateContactDto
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 py-5">
+    <div class="container">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">İletişim</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb text-uppercase">
+                <li class="breadcrumb-item"><a class="text-white" href="/Home/Index">Ana Sayfa</a></li>
+                <li class="breadcrumb-item text-white active" aria-current="page">İletişim</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Contact Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">Bize Ulaşın</h6>
+                <h1 class="mb-4">Her Türlü Soru ve Talepleriniz İçin Bizimle İletişime Geçin</h1>
+                <p class="mb-4">
+                    Sıhhi tesisat ile ilgili her türlü ihtiyaçlarınız için bizimle iletişime geçebilirsiniz.
+                    Uzman ekibimiz en kısa sürede sizinle irtibata geçecektir.
+                </p>                
+                <iframe class="position-relative w-100"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40465.39448657165!2d31.146179321681892!3d41.07755094037236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x409db3d59a97f919%3A0x5b9f88736721eb16!2zQWvDp2Frb2NhLCBEw7x6Y2U!5e0!3m2!1str!2str!4v1747051999149!5m2!1str!2str"
+                        frameborder="0" style="height: 300px; border:0;" allowfullscreen="" aria-hidden="false"
+                        tabindex="0"></iframe>
+            </div>
+            <div class="col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="bg-light p-5 h-100 d-flex align-items-center">
+                    <form asp-action="SendMessage" method="post">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" asp-for="Name" id="name" placeholder="İsminiz">
+                                    <label for="name">İsminiz</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" asp-for="Email" id="email" placeholder="E-posta Adresiniz">
+                                    <label for="email">E-posta</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" asp-for="Phone" id="phone" placeholder="Telefon Numaranız">
+                                    <label for="phone">Telefon</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Mesajınızı buraya yazın" asp-for="Message" id="message" style="height: 150px"></textarea>
+                                    <label for="message">Mesajınız</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" type="submit">Gönder</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+        @if (TempData["NotifyMessage"] != null)
+        {
+            <text>
+                      $.notify({
+                          // İçerik
+                          icon: 'fa fa-bell',
+                          title: '@TempData["NotifyTitle"]',
+                          message: '@TempData["NotifyMessage"]'
+                      },
+                      {
+                          // Ayarlar
+                          type: '@TempData["NotifyType"]',
+                          allow_dismiss: true,
+                          newest_on_top: true,
+                          placement: {
+                              from: "bottom",
+                              align: "right"
+                          },
+                          delay: 2500,
+                          timer: 500,
+                          animate: {
+                              enter: 'animated fadeInDown',
+                              exit: 'animated fadeOutUp'
+                          },
+                          offset: {
+                              x: 30,
+                              y: 30
+                          }
+                      });
+            </text>
+        }
+            });
+    </script>
+}
+

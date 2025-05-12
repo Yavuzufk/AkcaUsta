@@ -21,6 +21,7 @@ builder.Services.AddScoped<IServiceFeatureDal, ServiceFeatureRepository>();
 builder.Services.AddScoped<IServiceRandevuDal, ServiceRandevuRepository>();
 builder.Services.AddScoped<ITechnicianDal, TechnicianRepository>();
 builder.Services.AddScoped<ITestimonialDal, TestimonialRepository>();
+builder.Services.AddScoped<IContactDal, ContactRepository>();
 
 
 var app = builder.Build();

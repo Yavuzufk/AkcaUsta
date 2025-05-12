@@ -7,7 +7,7 @@ namespace AkcaUsta.Repository.IRepository
         Task ToggleRandevuStatusAsync(int id);
         Task<int> GetPendingRandevuCountAsync();
         Task<List<ServiceRandevu>> GetPassiveRandevuAsync();
-
+        Task<List<ServiceRandevu>> GetLastMonthRandevus();
 
     }
 }
