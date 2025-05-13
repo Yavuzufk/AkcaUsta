@@ -24,6 +24,7 @@ builder.Services.AddScoped<ITestimonialDal, TestimonialRepository>();
 builder.Services.AddScoped<IContactDal, ContactRepository>();
 
 
+
 var app = builder.Build();
 
 

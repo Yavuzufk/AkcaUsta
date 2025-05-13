@@ -1,4 +1,5 @@
-﻿using AkcaUsta.Entity;
+﻿using AkcaUsta.Dtos.ReportDtos;
+using AkcaUsta.Entity;
 
 namespace AkcaUsta.Repository.IRepository
 {
@@ -8,6 +9,10 @@ namespace AkcaUsta.Repository.IRepository
         Task<int> GetPendingRandevuCountAsync();
         Task<List<ServiceRandevu>> GetPassiveRandevuAsync();
         Task<List<ServiceRandevu>> GetLastMonthRandevus();
+        Task<RandevuStatisticsDto> GetRandevuStatistics();
+        Task<BusinessSummaryDto> GetBusinessSummaryReport();
+
+
 
     }
 }
