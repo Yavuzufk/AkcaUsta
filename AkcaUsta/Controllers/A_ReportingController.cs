@@ -26,7 +26,7 @@ namespace AkcaUsta.Controllers
             return View();
         }
 
-        #region PDF Raporu - Son 1 Aylık Randevular
+        #region EXCEL Raporu - Son 1 Aylık Randevular
 
         public async Task<IActionResult> ExportRandevuReportExcel()
         {
@@ -41,8 +41,13 @@ namespace AkcaUsta.Controllers
             ws.Cell(1, 3).Value = "Hizmet";
             ws.Cell(1, 4).Value = "Tarih";
 
-            ws.Range(1, 1, 1, 4).Style.Font.Bold = true;
-            ws.Range(1, 1, 1, 4).Style.Fill.BackgroundColor = XLColor.LightGray;
+            var headerRange = ws.Range(1, 1, 1, 4);
+            headerRange.Style.Font.Bold = true;
+            headerRange.Style.Fill.BackgroundColor = XLColor.SkyBlue;
+            headerRange.Style.Font.FontColor = XLColor.White;
+            headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            headerRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+            headerRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
 
             int row = 2;
 
@@ -52,10 +57,24 @@ namespace AkcaUsta.Controllers
                 ws.Cell(row, 2).Value = item.Mail;
                 ws.Cell(row, 3).Value = item.Service;
                 ws.Cell(row, 4).Value = item.Date.ToString("dd.MM.yyyy");
+
+                // Zebra stil: çift satırlara farklı arka plan rengi uygula
+                if (row % 2 == 0)
+                {
+                    ws.Range(row, 1, row, 4).Style.Fill.BackgroundColor = XLColor.LightCyan;
+                }
+                else
+                {
+                    ws.Range(row, 1, row, 4).Style.Fill.BackgroundColor = XLColor.White;
+                }
+
+                ws.Range(row, 1, row, 4).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                ws.Range(row, 1, row, 4).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
                 row++;
             }
 
-            // Kolon genişliklerini ayarla
+            // Kolon genişliklerini otomatik ayarla
             ws.Columns().AdjustToContents();
 
             using var stream = new MemoryStream();
@@ -66,6 +85,7 @@ namespace AkcaUsta.Controllers
                         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                         "RandevuRapor.xlsx");
         }
+
 
         #endregion
 
@@ -78,9 +98,17 @@ namespace AkcaUsta.Controllers
             var wb = new XLWorkbook();
             var ws = wb.Worksheets.Add("Randevu Durumları");
 
+            // Başlıklar
             ws.Cell(1, 1).Value = "Durum";
             ws.Cell(1, 2).Value = "Sayı";
 
+            ws.Range("A1:B1").Style
+                .Font.SetBold()
+                .Font.SetFontColor(XLColor.White)
+                .Fill.SetBackgroundColor(XLColor.DarkBlue)
+                .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+            // Veri satırları
             ws.Cell(2, 1).Value = "Toplam";
             ws.Cell(2, 2).Value = stats.TotalCount;
 
@@ -90,16 +118,41 @@ namespace AkcaUsta.Controllers
             ws.Cell(4, 1).Value = "Beklemede";
             ws.Cell(4, 2).Value = stats.PendingCount;
 
+            // Zebra arka plan stili
+            for (int i = 2; i <= 4; i++)
+            {
+                var row = ws.Row(i);
+                if (i % 2 == 0)
+                    row.Style.Fill.BackgroundColor = XLColor.LightBlue;
+                else
+                    row.Style.Fill.BackgroundColor = XLColor.WhiteSmoke;
+
+                row.Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Left);
+                row.Style.Font.FontSize = 12;
+            }
+
+            // Tablonun kenarlıklarını ayarla
+            ws.Range("A1:B4").Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+            ws.Range("A1:B4").Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+            // Kolon genişliklerini ayarla
+            ws.Columns().AdjustToContents();
+
             using var stream = new MemoryStream();
             wb.SaveAs(stream);
             stream.Position = 0;
-            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "RandevuDurumRaporu.xlsx");
+
+            return File(stream.ToArray(),
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "RandevuDurumRaporu.xlsx");
         }
+
+
 
 
         #endregion
 
-        #region Excel Raporu - İş İstatistik Özeti Raporu
+        #region EXCEL Raporu - İş İstatistik Özeti Raporu
 
         public async Task<IActionResult> ExportBusinessSummaryToExcel()
         {
@@ -112,30 +165,49 @@ namespace AkcaUsta.Controllers
 
             // Başlık
             ws.Cell(row, 1).Value = "İş İstatistik Özeti";
-            ws.Cell(row, 1).Style.Font.Bold = true;
-            ws.Cell(row, 1).Style.Font.FontSize = 14;
+            ws.Range(row, 1, row, 2).Merge();
+            ws.Row(row).Style
+                .Font.SetBold()
+                .Font.SetFontSize(16)
+                .Font.SetFontColor(XLColor.White)
+                .Fill.SetBackgroundColor(XLColor.DarkBlue)
+                .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
             row += 2;
 
             // Toplam randevu sayısı
             ws.Cell(row, 1).Value = "Toplam Randevu Sayısı";
             ws.Cell(row, 2).Value = summary.TotalAppointments;
+            ws.Range(row, 1, row, 2).Style.Font.SetBold().Font.SetFontColor(XLColor.Black);
             row += 2;
 
             // Hizmet dağılımı başlığı
             ws.Cell(row, 1).Value = "Hizmetlere Göre Dağılım";
-            ws.Cell(row, 1).Style.Font.Bold = true;
+            ws.Range(row, 1, row, 2).Merge();
+            ws.Row(row).Style
+                .Font.SetBold()
+                .Font.SetFontColor(XLColor.White)
+                .Fill.SetBackgroundColor(XLColor.CornflowerBlue)
+                .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
             row++;
 
-            // Hizmet dağılımı verileri
+            // Hizmet dağılımı tablo başlıkları
             ws.Cell(row, 1).Value = "Hizmet";
             ws.Cell(row, 2).Value = "Sayı";
-            ws.Range(row, 1, row, 2).Style.Font.Bold = true;
+            ws.Range(row, 1, row, 2).Style
+                .Font.SetBold()
+                .Fill.SetBackgroundColor(XLColor.LightGray);
             row++;
 
+            // Hizmet dağılımı verileri (zebra stil)
+            bool isEven = true;
             foreach (var item in summary.AppointmentsByService)
             {
                 ws.Cell(row, 1).Value = item.Key;
                 ws.Cell(row, 2).Value = item.Value;
+
+                var bgColor = isEven ? XLColor.White : XLColor.LightBlue;
+                ws.Range(row, 1, row, 2).Style.Fill.BackgroundColor = bgColor;
+                isEven = !isEven;
                 row++;
             }
 
@@ -144,24 +216,31 @@ namespace AkcaUsta.Controllers
             // En popüler hizmet
             ws.Cell(row, 1).Value = "En Popüler Hizmet";
             ws.Cell(row, 2).Value = summary.MostPopularService;
+            ws.Range(row, 1, row, 2).Style.Font.SetBold();
             row++;
 
             // En popüler gün
             ws.Cell(row, 1).Value = "En Tercih Edilen Gün";
             ws.Cell(row, 2).Value = summary.MostPopularDay;
+            ws.Range(row, 1, row, 2).Style.Font.SetBold();
 
-            // Otomatik kolon genişliği
+            // Kenarlıklar ve kolon ayarları
+            ws.RangeUsed().Style.Border
+                .OutsideBorder = XLBorderStyleValues.Thin;
+            ws.RangeUsed().Style.Border
+                .InsideBorder = XLBorderStyleValues.Thin;
+
             ws.Columns().AdjustToContents();
 
-            // Excel dosyasını stream'e yaz
             using var stream = new MemoryStream();
             wb.SaveAs(stream);
             stream.Position = 0;
 
             return File(stream.ToArray(),
-                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                        "IsOzetiRaporu.xlsx");
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "IsOzetiRaporu.xlsx");
         }
+
 
 
         #endregion

@@ -22,6 +22,8 @@ builder.Services.AddScoped<IServiceRandevuDal, ServiceRandevuRepository>();
 builder.Services.AddScoped<ITechnicianDal, TechnicianRepository>();
 builder.Services.AddScoped<ITestimonialDal, TestimonialRepository>();
 builder.Services.AddScoped<IContactDal, ContactRepository>();
+builder.Services.AddScoped<IStatisticsDal, StatisticsRepository>();
+
 
 
 

@@ -1,0 +1,60 @@
+﻿@model List<ServiceRandevuStatisticDto>
+@{
+    var sortedModel = Model.OrderByDescending(x => x.Percentage).ToList();
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-round">
+            <div class="card-header">
+                <div class="card-head-row card-tools-still-right">
+                    <h4 class="card-title">Hizmet İstatistikleri | Konumumuz</h4>
+                    <div class="card-tools">
+                        <button class="btn btn-icon btn-link btn-primary btn-xs">
+                            <span class="fa fa-angle-down"></span>
+                        </button>
+                        <button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card">
+                            <span class="fa fa-sync-alt"></span>
+                        </button>
+                        <button class="btn btn-icon btn-link btn-primary btn-xs">
+                            <span class="fa fa-times"></span>
+                        </button>
+                    </div>
+                </div>
+                <p class="card-category">
+                    Haritadan konumumuzu ve de hizmetlerimizin sayısal istatistiklerini görebilirsiniz.
+                </p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="table-responsive table-hover table-sales">
+                            <table class="table">
+                                <tbody>
+                                    @foreach (var item in sortedModel)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="text-center text-primary">
+                                                    <i class="fas fa-angle-double-right"></i>
+                                                </div>
+                                            </td>
+                                            <td>@item.ServiceName</td>
+                                            <td class="text-end">@item.Count</td>
+                                            <td class="text-end">@item.Percentage %</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <iframe class="position-relative w-100"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40465.39448657165!2d31.146179321681892!3d41.07755094037236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x409db3d59a97f919%3A0x5b9f88736721eb16!2zQWvDp2Frb2NhLCBEw7x6Y2U!5e0!3m2!1str!2str!4v1747051999149!5m2!1str!2str"
+                                frameborder="0" style="height: 300px; border:0;" allowfullscreen="" aria-hidden="false"
+                                tabindex="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

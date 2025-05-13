@@ -1,0 +1,42 @@
+﻿@model List<LatestContactDto>
+<div class="col-md-8">
+    <div class="card card-round">
+        <div class="card-header">
+            <div class="card-head-row card-tools-still-right">
+                <div class="card-title">Son Gelen 5 Mesaj</div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Gönderen İsim</th>
+                            <th scope="col">Tarih & Saat</th>
+                            <th scope="col">Telefon</th>
+                            <th scope="col">Detay</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">
+                                    <button class="btn btn-icon btn-round btn-success btn-sm me-2">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                    @item.Name
+                                </th>
+                                <td>@item.CreatedDate.ToString("MMMM dd, yyyy, HH:mm", new System.Globalization.CultureInfo("tr-TR"))</td>
+                                <td >@item.Phone</td>
+                                <td >
+                                    <a class="badge badge-success" href="/A_Contact/Index">Git</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
