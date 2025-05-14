@@ -9,9 +9,12 @@
         <h6 class="op-7 mb-2">Akço Usta Admin Paneline Hoşgeldiniz !</h6>
     </div>
     <div class="ms-md-auto py-2 py-md-0">
-        <a href="#" class="btn btn-primary btn-round">Kullanıcı Ekle</a>
+        <a href="#" class="btn btn-primary btn-round" data-bs-toggle="modal" data-bs-target="#registerModal">Kullanıcı Ekle</a>
     </div>
 </div>
+<!-- Modal -->
+@await Component.InvokeAsync("_UserRegisterModalComponentPartial")
+
 @await Component.InvokeAsync("_DashboardCountStatisticsComponentPartial")
 @await Component.InvokeAsync("_DashboardServiceStatisticsComponentPartial")
 <div class="row">
@@ -60,3 +63,41 @@
     </div>
     @await Component.InvokeAsync("_DashboardLatestContactsComponentPartial")
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+        @if (TempData["NotifyMessage"] != null)
+        {
+            <text>
+                                $.notify({
+                                    // İçerik
+                                    icon: 'fa fa-bell',
+                                    title: '@TempData["NotifyTitle"]',
+                                    message: '@TempData["NotifyMessage"]'
+                                },
+                                {
+                                    // Ayarlar
+                                    type: '@TempData["NotifyType"]',
+                                    allow_dismiss: true,
+                                    newest_on_top: true,
+                                    placement: {
+                                        from: "bottom",
+                                        align: "right"
+                                    },
+                                    delay: 2500,
+                                    timer: 500,
+                                    animate: {
+                                        enter: 'animated fadeInDown',
+                                        exit: 'animated fadeOutUp'
+                                    },
+                                    offset: {
+                                        x: 30,
+                                        y: 30
+                                    }
+                                });
+            </text>
+        }
+        });
+    </script>
+}

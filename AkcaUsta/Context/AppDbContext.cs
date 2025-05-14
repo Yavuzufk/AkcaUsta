@@ -1,9 +1,11 @@
 ﻿using AkcaUsta.Entity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AkcaUsta.Context
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext: IdentityDbContext<AppUser, AppRole, int>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
