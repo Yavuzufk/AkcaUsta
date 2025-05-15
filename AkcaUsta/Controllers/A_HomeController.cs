@@ -1,13 +1,10 @@
-﻿using AkcaUsta.Filters;
-using AkcaUsta.Repository.IRepository;
+﻿using AkcaUsta.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AkcaUsta.Controllers
 {
-    [ServiceFilter(typeof(CustomAuthorizationFilter))] // Özel yetki kontrolü
-    [Authorize(Roles = "Admin")]  // Admin rolüne sahip kullanıcılar için erişim
-
+    [Authorize(Policy = "AdminPolicy")]
     public class A_HomeController : Controller
     {
         private readonly IServiceRandevuDal _serviceRandevuDal;

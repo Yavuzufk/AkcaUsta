@@ -1,6 +1,5 @@
 using AkcaUsta.Context;
 using AkcaUsta.Entity;
-using AkcaUsta.Filters;
 using AkcaUsta.Mapping;
 using AkcaUsta.Repositories.IRepository;
 using AkcaUsta.Repositories.Repository;
@@ -16,6 +15,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.LoginPath = "/Login/Index"; // Giriþ sayfasý
         options.AccessDeniedPath = "/Home/AccessDenied"; // Eriþim reddedildi sayfasý
+
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(10); 
+        options.SlidingExpiration = true;
     });
 
 // Authorization servisini ekleyin
@@ -55,7 +57,6 @@ builder.Services.AddScoped<ITechnicianDal, TechnicianRepository>();
 builder.Services.AddScoped<ITestimonialDal, TestimonialRepository>();
 builder.Services.AddScoped<IContactDal, ContactRepository>();
 builder.Services.AddScoped<IStatisticsDal, StatisticsRepository>();
-builder.Services.AddScoped<CustomAuthorizationFilter>();
 
 var app = builder.Build();
 

@@ -1,5 +1,6 @@
 ﻿using AkcaUsta.Dtos.AppUserDtos;
 using AkcaUsta.Entity;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -34,22 +35,39 @@ namespace AkcaUsta.Controllers
                     var roles = await _userManager.GetRolesAsync(user);
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, user.UserName),
+                        new Claim(ClaimTypes.Name, user.Name), // Doğru isim geliyor
                         new Claim(ClaimTypes.Email, user.Email)
                     };
+
                     claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
                     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var principal = new ClaimsPrincipal(identity);
 
-                    await _signInManager.SignInAsync(user, isPersistent: model.RememberMe);
+                    var authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = model.RememberMe,
+                        ExpiresUtc = model.RememberMe
+                            ? DateTimeOffset.UtcNow.AddDays(1)
+                            : DateTimeOffset.UtcNow.AddMinutes(10)
+                    };
+
+                    await _signInManager.SignInAsync(user, authProperties);
+                    
 
                     return RedirectToAction("Index", "Home");
                 }
+
                 ModelState.AddModelError(string.Empty, "Geçersiz giriş.");
             }
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync(); // Cookie'yi siler
+            return RedirectToAction("Index", "Login");
+        }
     }
 }
