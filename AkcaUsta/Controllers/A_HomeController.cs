@@ -19,5 +19,7 @@ namespace AkcaUsta.Controllers
             ViewBag.PasiveCount = await _serviceRandevuDal.GetPendingRandevuCountAsync();
             return View();
         }
+
+
     }
 }

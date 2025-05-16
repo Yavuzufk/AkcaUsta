@@ -1,0 +1,35 @@
+﻿@model List<AppUser>
+
+<div class="col-md-4">
+    <div class="card card-round">
+        <div class="card-body">
+            <div class="card-head-row card-tools-still-right">
+                <div class="card-title">Kullanıcılar</div>
+            </div>
+            <div class="card-list py-4">
+                @foreach (var item in Model)
+                {
+                    <div class="item-list">
+                        <div class="avatar">
+                            <span class="avatar-title rounded-circle border border-white">
+                                @((item.Name?.FirstOrDefault().ToString() ?? "A") + (item.Surname?.FirstOrDefault().ToString() ?? "B"))
+                            </span>
+                        </div>
+                        <div class="info-user ms-3">
+                            <div class="username">@item.Name @item.Surname</div>
+                            <div class="status">@item.Email</div>
+                        </div>
+                        <a href="mailto:@item.Email" class="btn btn-icon btn-link op-8 me-1">
+                            <i class="far fa-envelope"></i>
+                        </a>
+                        <form asp-action="DeleteUser" asp-controller="Register" asp-route-id="@item.Id" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-icon btn-link btn-danger op-8" onclick="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?');">
+                                <i class="fas fa-ban"></i>
+                            </button>
+                        </form>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

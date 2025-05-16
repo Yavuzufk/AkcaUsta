@@ -41,7 +41,7 @@
                             <th>Tarih</th>
                             <th>Durum</th>
                             <th>Mesaj</th>
-                            <th style="width: 10%">Action</th>
+                            <th style="width: 10%">Sil</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -53,7 +53,7 @@
                             <th>Tarih</th>
                             <th>Durum</th>
                             <th>Mesaj</th>
-                            <th>Action</th>
+                            <th>Sil</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -86,20 +86,9 @@
                                 <td>@item.SpecialRequest</td>
                                 <td>
                                     <div class="form-button-action">
-                                        <button type="button"
-                                                data-bs-toggle="tooltip"
-                                                title=""
-                                                class="btn btn-link btn-primary btn-lg"
-                                                data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button type="button"
-                                                data-bs-toggle="tooltip"
-                                                title=""
-                                                class="btn btn-link btn-danger"
-                                                data-original-title="Remove">
-                                            <i class="fa fa-times"></i>
-                                        </button>
+                                        <a href="/A_ServiceRandevu/Delete/@item.ServiceRandevuID" class="btn btn-link btn-danger btn-lg">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>

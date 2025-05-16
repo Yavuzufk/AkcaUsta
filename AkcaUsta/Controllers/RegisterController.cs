@@ -69,5 +69,28 @@ namespace AkcaUsta.Controllers
 
             return RedirectToAction("Index", "A_Home");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                var result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    TempData["NotifyMessage"] = "Kullanıcı başarılı bir şekilde silinmiştir.";
+                    TempData["NotifyType"] = "success";
+                    TempData["NotifyTitle"] = "Kullanıcı Silme İşlemi Başarılı";
+                }
+                else
+                {
+                    TempData["NotifyMessage"] = "Maalesef ! Kullanıcı başarılı bir şekilde silinemedi.";
+                    TempData["NotifyType"] = "danger";
+                    TempData["NotifyTitle"] = "Kullanıcı Silme İşlemi Başarısız !";
+                }
+            }
+            return RedirectToAction("Index", "A_Home");
+        }
     }
 }
